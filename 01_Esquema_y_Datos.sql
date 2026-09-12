@@ -55,3 +55,4 @@ id_detalle int primary key,
 cantidad int check(cantidad>0),
 
 )
+-- PRUEBA GIT
