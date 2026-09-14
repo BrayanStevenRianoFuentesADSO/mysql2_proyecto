@@ -43,20 +43,67 @@ END //
 
 -- fn_ObtenerPrecioProducto: Devuelve el precio actual de un producto.
 
-CREATE function fn_ObtenerPrecioProducto(
-
+CREATE FUNCTION fn_ObtenerPrecioProducto(
 p_id_producto int
 )
+returns decimal(10,2)
+deterministic 
 
-deterministic
 
 begin
-	select precio from 
-end
+	declare precio_producto decimal(10,2);
+	select precio 
+	into precio_producto
+	from productos
+	where id_producto=p_id_producto;
+	
+return precio_producto;
+end //
 
+CREATE FUNCTION fn_CalcularEdadCliente(
+    p_id_cliente INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+
+    DECLARE anio_nacimiento INT;
+    DECLARE mes_nacimiento INT;
+    DECLARE dia_nacimiento INT;
+    DECLARE anio_actual INT;
+    DECLARE mes_actual INT;
+    DECLARE dia_actual INT;
+    DECLARE edad_cliente INT;
+
+    SELECT YEAR(fecha_nacimiento),
+           MONTH(fecha_nacimiento),
+           DAY(fecha_nacimiento)
+    INTO anio_nacimiento,
+         mes_nacimiento,
+         dia_nacimiento
+    FROM clientes
+    WHERE id_cliente = p_id_cliente;
+
+    SELECT YEAR(CURDATE()),
+           MONTH(CURDATE()),
+           DAY(CURDATE())
+    INTO anio_actual,
+         mes_actual,
+         dia_actual;
+
+    IF mes_actual > mes_nacimiento
+       OR (mes_actual = mes_nacimiento AND dia_actual >= dia_nacimiento) THEN
+
+        RETURN anio_actual - anio_nacimiento;
+
+    ELSE
+
+        RETURN anio_actual - anio_nacimiento - 1;
+
+    END IF;
+
+END //
 DELIMITER ;
 
 
-SELECT fn_VerificarDisponibilidadStock(1, 16);
-
-
+SELECT fn_CalcularEdadCliente(4);
