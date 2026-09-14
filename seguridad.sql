@@ -106,13 +106,20 @@ grant select on ecommerce.productos to 'Visitante';
 create view v_info_clientes_basica as
 select
 id_cliente,
-nombre,
-apellido,
+nombres,
+apellidos,
 fecha_registro,
 email
 from clientes;
 
--- 15. politicas de contraseña
 
--- 16. pendiente por verificar especialmente root y usuarios normales limitados por localhost
+-- 15. ADVERTENCIA: pendiente
+-- Implementar politica de contraseÃ±as seguras para todos los usuarios.
+-- validate_password no se encuentra habilitado actualmente.
 
+
+-- 16. verificar que root solo pueda usarse localmente
+
+select user, host
+from mysql.user
+where user = 'root';
