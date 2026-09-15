@@ -67,7 +67,7 @@ begin
 	insert into auditoria_clientes (id_cliente, nombres, apellidos, email, fecha_registro)
 	values (new.id_cliente, new.nombres, new.apellidos, new.email, now());
 end //
-
+-- 6. trg_update_total_gastado_cliente: Actualiza un campo total_gastado en la tabla clientes después de cada compra.
 create trigger trg_update_total_gastado_cliente
 after insert on ventas
 for each row
@@ -76,6 +76,7 @@ begin
 	where id_cliente = new.id_cliente;
 end // 
 
+-- 7. trg_set_fecha_modificacion_producto: Actualiza automáticamente la fecha de última modificación de un producto.
 create trigger trg_set_fecha_modificacion_producto 
 before update on productos
 for each row
@@ -83,6 +84,7 @@ begin
 	set new.fecha_modificacion = now();
 end //
 
+-- 8. trg_prevent_negative_stock: Impide que el stock de un producto se actualice a un valor negativo.
 create trigger trg_prevent_negative_stock
 before update on productos
 for each row
@@ -93,6 +95,7 @@ begin
 	end if;
 end //
 
+-- 9. trg_capitalize_nombre_cliente: Convierte a mayúscula la primera letra del nombre y apellido de un cliente al insertarlo.
 create trigger trg_capitalize_nombre_cliente
 before insert on clientes
 for each row
@@ -101,6 +104,7 @@ begin
 	set new.apellidos = concat(upper(left(new.apellidos,1)), lower(substring(new.apellidos,2)));
 end //
 
+-- 10. trg_recalculate_total_venta_on_detalle_change: Recalcula el total en la tabla ventas si se modifica un detalle_venta.
 CREATE TRIGGER trg_recalculate_total_venta_on_detalle_change
 AFTER UPDATE ON detalle_ventas
 FOR EACH ROW

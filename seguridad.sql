@@ -80,7 +80,7 @@ revoke select on ecommerce.auditoria from 'Analista_Datos'; -- esperar hasta sab
 
 grant update (stock, ubicacion) on ecommerce.productos to 'Empleado_Inventario';
 
-grant select on  ecommerce.v_info_clientes_basica to 'Atencion_Cliente'; -- revisar si ventas o clientes tienen precio
+grant select on  ecommerce.v_info_clientes_basica to 'Atencion_Cliente'; 
 -- cambie el grant select on  ecommerce.cliente to 'Atencion_Cliente'; ya que si lo dejaba asi mostraria toda la tabla 
 -- incluyendo datos sencibles para el cliente
 
@@ -89,10 +89,8 @@ grant select on ecommerce.ventas to 'Atencion_Cliente';
 grant select on ecommerce.ventas to 'Auditor_Financiero';
 grant select on ecommerce.productos to 'Auditor_Financiero';
 grant select on ecommerce.logs_precio to 'Auditor_Financiero'; -- pendiente la tabla de logs_precio
-
 -- 17. crear rol visitante
 grant select on ecommerce.productos to 'Visitante'; 
-
 -- 1-10 terminados
 -- =======================================================
 -- 			otros permisos y seguridad
@@ -119,7 +117,6 @@ from clientes;
 
 
 -- 16. verificar que root solo pueda usarse localmente
-
 select user, host
 from mysql.user
 where user = 'root';

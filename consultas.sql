@@ -152,8 +152,6 @@ group by p.nombre, periodo;
 
 
 -- 15. Análisis de Cohort: Analizar la retención de clientes mes a mes desde su primera compra.
-
-
 -- pruebas
 select cohorte.mes_inicio, month(v.fecha_venta) - cohorte.mes_inicio as meses_desde_inicio, count(distinct cohorte.id_cliente) as clientes from (select id_cliente,MONTH(MIN(fecha_venta)) AS mes_inicio FROM ventas GROUP BY id_cliente) as cohorte
 join ventas v on cohorte.id_cliente = v.id_cliente group by cohorte.mes_inicio,meses_desde_inicio;
