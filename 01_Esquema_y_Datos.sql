@@ -161,6 +161,7 @@ descripcion VARCHAR(255),
 fecha_detectada DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- 
 CREATE TABLE auditoria_precios_historica(
 id_auditoria INT,
 id_producto INT,
@@ -177,7 +178,7 @@ fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 
-
+-- "tablas por eventos"
 
 CREATE TABLE auditoria_stock(
     id_auditoria INT AUTO_INCREMENT PRIMARY KEY,
@@ -188,7 +189,6 @@ CREATE TABLE auditoria_stock(
     fecha_ajuste DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
-
 
 
 CREATE TABLE notificaciones(
@@ -419,19 +419,8 @@ INSERT INTO vistas_productos(id_producto,id_cliente,fecha_vista) VALUES
 (19,19,'2026-09-13 10:30:00'),
 (20,20,'2026-09-14 16:30:00');
 
-INSERT INTO auditoria_precios(id_producto,precio_anterior,precio_nuevo) VALUES
-(1,2600000,2500000),
-(3,900000,850000),
-(5,130000,120000),
-(9,420000,390000),
-(10,260000,240000);
 
-INSERT INTO auditoria_clientes(id_cliente,nombres,apellidos,email) VALUES
-(1,'Juan','Perez','juan.perez@email.com'),
-(2,'Maria','Gomez','maria.gomez@email.com'),
-(5,'Andres','Lopez','andres.lopez@email.com'),
-(8,'Valentina','Ramirez','valentina.ramirez@email.com'),
-(15,'Samuel','Ruiz','samuel.ruiz@email.com');
+
 
 INSERT INTO reporte_ventas_semanal(fecha_inicio,fecha_fin,cantidad_ventas,total_vendido) VALUES
 ('2026-08-24','2026-08-30',18,12500000),
@@ -476,12 +465,6 @@ INSERT INTO inconsistencias_datos(tipo,descripcion) VALUES
 ('Venta','Venta cancelada'),
 ('Cliente','Cliente con actividad inactiva');
 
-INSERT INTO auditoria_precios_historica(id_auditoria,id_producto,precio_anterior,precio_nuevo,fecha_modificacion) VALUES
-(1,1,2600000,2500000,'2026-09-01 08:00:00'),
-(2,3,900000,850000,'2026-09-02 09:00:00'),
-(3,5,130000,120000,'2026-09-03 08:00:00'),
-(4,9,420000,390000,'2026-09-05 07:30:00'),
-(5,10,260000,240000,'2026-09-05 12:00:00');
 
 INSERT INTO datos_temporales(informacion) VALUES
 ('Proceso temporal de importacion'),
@@ -489,3 +472,4 @@ INSERT INTO datos_temporales(informacion) VALUES
 ('Calculo temporal de ventas'),
 ('Revision temporal de clientes'),
 ('Proceso temporal de inventario');
+
