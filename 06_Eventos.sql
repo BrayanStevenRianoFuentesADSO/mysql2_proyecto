@@ -160,3 +160,4 @@ FROM ventas v
 LEFT JOIN detalle_ventas d
     ON v.id_venta = d.id_venta
 WHERE d.id_venta IS NULL;
+

@@ -176,7 +176,28 @@ informacion VARCHAR(255),
 fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-USE Ecommerce;
+
+
+
+CREATE TABLE auditoria_stock(
+    id_auditoria INT AUTO_INCREMENT PRIMARY KEY,
+    id_producto INT NOT NULL,
+    stock_anterior INT NOT NULL,
+    stock_nuevo INT NOT NULL,
+    motivo VARCHAR(255) NOT NULL,
+    fecha_ajuste DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
+
+
+CREATE TABLE notificaciones(
+    id_notificacion INT AUTO_INCREMENT PRIMARY KEY,
+    id_venta INT NOT NULL,
+    mensaje VARCHAR(255) NOT NULL,
+    fecha_notificacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_venta) REFERENCES ventas(id_venta)
+);
 
 INSERT INTO categorias(id_categoria,nombre,descripcion) VALUES
 (1,'Computadores','Computadores de escritorio y portatiles'),
