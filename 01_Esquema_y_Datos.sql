@@ -199,6 +199,21 @@ CREATE TABLE notificaciones(
     FOREIGN KEY (id_venta) REFERENCES ventas(id_venta)
 );
 
+CREATE TABLE devoluciones (
+    id_devolucion INT AUTO_INCREMENT PRIMARY KEY,
+    id_venta INT NOT NULL,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL CHECK(cantidad > 0),
+    monto_credito DECIMAL(10,2) NOT NULL,
+    fecha_devolucion DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_venta)
+        REFERENCES ventas(id_venta),
+
+    FOREIGN KEY (id_producto)
+        REFERENCES productos(id_producto)
+);
+
 INSERT INTO categorias(id_categoria,nombre,descripcion) VALUES
 (1,'Computadores','Computadores de escritorio y portatiles'),
 (2,'Celulares','Telefonos inteligentes'),
