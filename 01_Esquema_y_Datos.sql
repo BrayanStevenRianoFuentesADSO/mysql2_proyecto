@@ -129,6 +129,59 @@ CREATE TABLE auditoria_clientes (
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE reporte_ventas_semanal (
+    id_reporte INT AUTO_INCREMENT PRIMARY KEY,
+    fecha_generacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    cantidad_ventas INT DEFAULT 0,
+    total_vendido DECIMAL(10,2) DEFAULT 0
+);
+
+
+CREATE TABLE productos_reabastecimiento (
+    id_reabastecimiento INT AUTO_INCREMENT PRIMARY KEY,
+    id_producto INT NOT NULL,
+    stock_actual INT NOT NULL,
+    stock_minimo INT NOT NULL,
+    fecha_generacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
+
+CREATE TABLE resumen_ventas_diarias (
+    id_resumen INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL UNIQUE,
+    cantidad_ventas INT DEFAULT 0,
+    total_vendido DECIMAL(10,2) DEFAULT 0
+);
+
+
+CREATE TABLE inconsistencias_datos (
+    id_inconsistencia INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(255),
+    fecha_detectada DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE auditoria_precios_historica (
+    id_auditoria INT,
+    id_producto INT,
+    precio_anterior DECIMAL(10,2),
+    precio_nuevo DECIMAL(10,2),
+    fecha_modificacion DATETIME,
+    fecha_archivo DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE datos_temporales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    informacion VARCHAR(255),
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
 INSERT INTO clientes
 (nombres, apellidos, fecha_nacimiento, ciudad, region, email, contrasenia, direccion_envio, total_gastado)
 VALUES
